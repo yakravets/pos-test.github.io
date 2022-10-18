@@ -7,78 +7,67 @@ tg.MainButton.color = "#2cab37";
 
 let item = "";
 
-let btn1 = document.getElementById("btn1");
-let btn2 = document.getElementById("btn2");
-let btn3 = document.getElementById("btn3");
-let btn4 = document.getElementById("btn4");
-let btn5 = document.getElementById("btn5");
-let btn6 = document.getElementById("btn6");
+function onClickProduct(product_id){
 
-btn1.addEventListener("click", function(){
+    let btn_add_name = `btnadd${product_id}`;
+    let badge_name = `badge${product_id}`;
+    let btn_rm_name = `btnrm${product_id}`;
+
+    let badge = document.getElementById(badge_name);
+
+    const count = parseInt(badge.innerText);
+    if(isNaN(count) || count == 0)
+    {
+        badge.innerText = 1; 
+        badge.classList.remove("hidden");
+        badge.classList.add("visibility");
+
+        let btn = document.getElementById(btn_add_name);
+        btn.innerText = '+';
+        
+        let btn_rm = document.getElementById(btn_rm_name);
+        btn_rm.classList.remove("display-none");
+        btn_rm.classList.add("display-inline-block");
+
+    }
+    else{
+        badge.innerText = count + 1;
+    }
+        
 	if (tg.MainButton.isVisible) {
 		tg.MainButton.hide();
 	}
 	else {
-		tg.MainButton.setText("Вы выбрали товар 1!");
-		item = "1";
+		tg.MainButton.setText(`Вы выбрали товар ${product_id}!`);
+		item = toString(this.product_id);
 		tg.MainButton.show();
 	}
-});
+}
 
-btn2.addEventListener("click", function(){
-	if (tg.MainButton.isVisible) {
-		tg.MainButton.hide();
-	}
-	else {
-		tg.MainButton.setText("Вы выбрали товар 2!");
-		item = "2";
-		tg.MainButton.show();
-	}
-});
+function onClickRm(product_id)
+{
+    let btn_add_name = `btnadd${product_id}`;
+    let badge_name = `badge${product_id}`;
+    let btn_rm_name = `btnrm${product_id}`;
 
-btn3.addEventListener("click", function(){
-	if (tg.MainButton.isVisible) {
-		tg.MainButton.hide();
-	}
-	else {
-		tg.MainButton.setText("Вы выбрали товар 3!");
-		item = "3";
-		tg.MainButton.show();
-	}
-});
+    let badge = document.getElementById(badge_name);
 
-btn4.addEventListener("click", function(){
-	if (tg.MainButton.isVisible) {
-		tg.MainButton.hide();
-	}
-	else {
-		tg.MainButton.setText("Вы выбрали товар 4!");
-		item = "4";
-		tg.MainButton.show();
-	}
-});
+    const count = parseInt(badge.innerText);
+    badge.innerText = count - 1; 
+    if(count == 1)
+    {
+        badge.classList.remove("visibility");
+        badge.classList.add("hidden");
 
-btn5.addEventListener("click", function(){
-	if (tg.MainButton.isVisible) {
-		tg.MainButton.hide();
-	}
-	else {
-		tg.MainButton.setText("Вы выбрали товар 5!");
-		item = "5";
-		tg.MainButton.show();
-	}
-});
+        let btn = document.getElementById(btn_add_name);
+        btn.innerText = 'ADD';
 
-btn6.addEventListener("click", function(){
-	if (tg.MainButton.isVisible) {
-		tg.MainButton.hide();
-	}
-	else {
-		tg.MainButton.setText("Вы выбрали товар 6!");
-		item = "6";
-		tg.MainButton.show();
-	}
-});
+        let btn_rm = document.getElementById(btn_rm_name);
+        btn_rm.classList.remove("display-inline-block");
+        btn_rm.classList.add("display-none");        
+    }    
+
+}
 
 
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
