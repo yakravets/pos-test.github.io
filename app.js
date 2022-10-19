@@ -65,13 +65,17 @@ function onClickRm(product_id)
         let btn_rm = document.getElementById(btn_rm_name);
         btn_rm.classList.remove("display-inline-block");
         btn_rm.classList.add("display-none");        
-    }    
 
+        if (tg.MainButton.isVisible) {
+            tg.MainButton.hide();
+        }
+    }    
 }
 
 
 Telegram.WebApp.onEvent("mainButtonClicked", function(){
 	tg.sendData(item);
+    tg.BackButton.show();
 });
 
 let usercard = document.getElementById("usercard");
